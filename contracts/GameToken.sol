@@ -8,6 +8,7 @@ contract GameToken is ERC20, Ownable {
     event ExcludedFromFee(address indexed account);
     event IncludedForFee(address indexed account);
     event TransferFeeRateUpdated(uint256 transferFeeRate);
+    event TreasuryUpdated(address indexed treasury);
 
     uint256 constant DENOMINATOR = 10000;
     uint256 public transferFeeRate;
@@ -51,6 +52,13 @@ contract GameToken is ERC20, Ownable {
         transferFeeRate = _transferFeeRate;
 
         emit TransferFeeRateUpdated(transferFeeRate);
+    }
+
+    function setTreasury(address _treasury) external onlyOwner {
+        require(_treasury != address(0), "GAMETOKEN: treasury cannot be zero");
+        treasury = _treasury;
+
+        emit TreasuryUpdated(treasury);
     }
 
     function _transfer(

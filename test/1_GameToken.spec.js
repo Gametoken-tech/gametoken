@@ -1,7 +1,7 @@
-const { ethers, upgrades } = require('hardhat');
+const { ethers } = require('hardhat');
 const { expect } = require('chai');
 const { BigNumber } = require('ethers');
-const { time, constants } = require('@openzeppelin/test-helpers');
+const { constants } = require('@openzeppelin/test-helpers');
 
 describe('GameToken', () => {
   let owner;
@@ -163,6 +163,26 @@ describe('GameToken', () => {
       expect(tx)
         .to.emit(gameToken, 'TransferFeeRateUpdated')
         .withArgs(newTransferRate);
+    });
+  });
+
+  describe('setTreasury', () => {
+    it('Revert if msg.sender is not owner', async () => {
+      await expect(
+        gameToken.connect(alice).setTreasury(bob.address),
+      ).to.be.revertedWith('Ownable: caller is not the owner');
+    });
+
+    it('Revert if treasury is zero', async () => {
+      await expect(
+        gameToken.connect(owner).setTreasury(constants.ZERO_ADDRESS),
+      ).to.be.revertedWith('GAMETOKEN: treasury cannot be zero');
+    });
+
+    it('Set treasury and emit TreasuryUpdated event', async () => {
+      const tx = await gameToken.connect(owner).setTreasury(bob.address);
+      expect(await gameToken.treasury()).to.equal(bob.address);
+      expect(tx).to.emit(gameToken, 'TreasuryUpdated').withArgs(bob.address);
     });
   });
 
