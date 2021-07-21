@@ -13,3 +13,4 @@ const deployGame = async function (hre) {
 };
 
 module.exports = deployGame;
+module.exports.tags = ['Game'];

@@ -36,7 +36,7 @@ module.exports = {
   namedAccounts: {
     deployer: 0,
     treasury: {
-      1666600000: '0x4cb34d5489Ed8c46Ee204527B6a89e39A04923C6', // Harmony address: one1fje564yfakxydm3qg5nmd2y78xsyjg7xj2ldxe
+      1666600000: '0xdAaeDd3A5703F3B1E79429EE83A40e646ED4084f', // Harmony address: one1fje564yfakxydm3qg5nmd2y78xsyjg7xj2ldxe
       1666700000: '0x7638Ae4db07cb6e00b8952b238062D6c19b7830c',
     },
   },
